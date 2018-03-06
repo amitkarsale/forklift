@@ -1,0 +1,11 @@
+---
+- name: 'Install dracut-fips'
+  action: yum name=dracut-fips state=installed
+- name: 'Run dracut to rebuild initramfs'
+  command: dracut --force
+- name: 'Edit kernel command-line to include the fips=1 argument'
+  command: grubby --update-kernel=DEFAULT --args=fips=1
+- name: 'Get uuid'
+  shell: 'uuid=$(findmnt -no uuid /boot)'
+- name: 'Edit kernel command-line to include the boot=UUID=XXXX or boot=LABEL=XXXX or boot=/dev/DEVICE argument'
+  command: grubby --update-kernel=DEFAULT --args=boot=UUID=${uuid}

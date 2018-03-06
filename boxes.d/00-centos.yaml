@@ -19,3 +19,11 @@ boxes:
     box_name: centos7-atomic
     pty: true
     libvirt: http://cloud.centos.org/centos/7/atomic/images/CentOS-Atomic-Host-7-Vagrant-Libvirt.box
+
+  centos7-fips:
+    box_name:   'centos/7'
+    image_name: !ruby/regexp '/CentOS 7.*PV/'
+    pty:        true
+    ansible:
+      playbook: 'playbooks/centos7_fips.yml'
+      group: 'fips'
